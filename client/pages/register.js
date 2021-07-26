@@ -4,15 +4,18 @@ import Icon from "@material-tailwind/react/Icon";
 import Input from "@material-tailwind/react/Input";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { SyncOutlined } from "@ant-design/icons";
 
 const Register = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			setLoading(true);
 			const { data } = await axios.post(
 				"http://localhost:8000/api/register",
 				{
@@ -22,11 +25,13 @@ const Register = () => {
 				}
 			);
 			toast.success("Registration successful. Please login.");
+			setLoading(false);
 			setName("");
 			setEmail("");
 			setPassword("");
 		} catch (err) {
 			toast.error(err.response.data);
+			setLoading(false);
 		}
 	};
 
@@ -82,8 +87,13 @@ const Register = () => {
 						color="blue"
 						buttonType="fill"
 						ripple="light"
+						disabled={loading}
 					>
-						<Icon name="send" size="sm" />
+						{loading ? (
+							<SyncOutlined spin />
+						) : (
+							<Icon name="send" size="sm" />
+						)}
 						Submit
 					</Button>
 				</form>
