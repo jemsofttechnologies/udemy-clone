@@ -5,30 +5,29 @@ import Input from "@material-tailwind/react/Input";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { SyncOutlined } from "@ant-design/icons";
+import { useRouter } from "next/dist/client/router";
 
 const Register = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
-
+	const router = useRouter();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
 			setLoading(true);
-			const { data } = await axios.post(
-				"http://localhost:8000/api/register",
-				{
-					name,
-					email,
-					password,
-				}
-			);
+			const { data } = await axios.post(`/api/register`, {
+				name,
+				email,
+				password,
+			});
 			toast.success("Registration successful. Please login.");
 			setLoading(false);
 			setName("");
 			setEmail("");
 			setPassword("");
+			router.replace("/login");
 		} catch (err) {
 			toast.error(err.response.data);
 			setLoading(false);
@@ -44,9 +43,9 @@ const Register = () => {
 			>
 				<h2 className="">Register</h2>
 			</div>
-			<section className="">
+			<section className="shadow-lg">
 				<form
-					className="flex flex-col space-y-6 shadow-lg p-12 rounded-md"
+					className="flex flex-col space-y-6 p-12 pb-4 rounded-md"
 					action=""
 					method="post"
 					onSubmit={handleSubmit}
@@ -97,6 +96,15 @@ const Register = () => {
 						Submit
 					</Button>
 				</form>
+				<p className="text-center p-3 mb-12">
+					Already registered?
+					<span
+						onClick={() => router.push("/login")}
+						className="text-blue-700 hover:underline hover:cursor-pointer ml-1"
+					>
+						Login
+					</span>
+				</p>
 			</section>
 		</div>
 	);
