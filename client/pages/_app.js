@@ -3,6 +3,8 @@ import Head from "next/head";
 import "tailwindcss/tailwind.css";
 import "../styles/global.css";
 import Header from "../components/Header";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function MyApp({ Component, pageProps }) {
@@ -23,6 +25,7 @@ function MyApp({ Component, pageProps }) {
 				/>
 			</Head>
 			<Header />
+			<ToastContainer position="top-center"/>
 			<Component {...pageProps} />
 		</>
 	);

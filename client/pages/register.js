@@ -3,6 +3,7 @@ import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import Input from "@material-tailwind/react/Input";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
 	const [name, setName] = useState("");
@@ -11,18 +12,22 @@ const Register = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const data = await axios
-			.post("http://localhost:8000/api/register", {
-				name,
-				email,
-				password,
-			})
-			.catch((error) => alert(error.message));
-		setName("");
-		setEmail("");
-		setPassword("");
-
-		return data;
+		try {
+			const { data } = await axios.post(
+				"http://localhost:8000/api/register",
+				{
+					name,
+					email,
+					password,
+				}
+			);
+			toast.success("Registration successful. Please login.");
+			setName("");
+			setEmail("");
+			setPassword("");
+		} catch (err) {
+			toast.error(err.response.data);
+		}
 	};
 
 	return (
