@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
-import Input from "@material-tailwind/react/Input";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { SyncOutlined } from "@ant-design/icons";

@@ -38,3 +38,33 @@ export const register = async (req, res) => {
 		return res.status(400).send("Error. Try again");
 	}
 };
+// Login
+export const login = async (req, res) => {
+	try {
+		const {email, password } = req.body;
+
+		// validation
+		if (!email) return res.status(400).send("Email is required");
+		if (!password) return res.status(400).send("Password is required");
+		let userExist = await User.findOne({ email }).exec();
+		if (!userExist) {
+			return res.status(400).send("User not found. Wrong Email or Password");
+		}
+		// hash password
+		const hashedPassword = await hashPassword(password);
+
+		// login  user
+		// const user = await new User({
+		// 	name,
+		// 	email,
+		// 	password: hashedPassword,
+		// }).save();
+
+		// console.log("saved user", user);
+
+		return res.json({ ok: true });
+	} catch (err) {
+		console.log(err);
+		return res.status(400).send("Error. Try again");
+	}
+};
