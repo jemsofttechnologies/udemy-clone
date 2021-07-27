@@ -56,7 +56,10 @@ export const login = async (req, res) => {
 		}
 		// check password
 		const match = await comparePassword(password, user.password);
-
+		if (!match)
+			return res
+				.status(400)
+				.send("Wrong Email or Password. Try again");
 		// create signed jwt
 		const token = jwt.sign(
 			{
@@ -78,6 +81,16 @@ export const login = async (req, res) => {
 
 		// send use as json response
 		res.json(user);
+	} catch (err) {
+		console.log(err);
+		return res.status(400).send("Error. Try again");
+	}
+};
+
+export const logout = async (req, res) => {
+	try {
+		res.clearCookie("token");
+		return res.json({ message: "Signout success" });
 	} catch (err) {
 		console.log(err);
 		return res.status(400).send("Error. Try again");
