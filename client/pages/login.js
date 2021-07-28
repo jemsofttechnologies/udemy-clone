@@ -3,14 +3,23 @@ import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { Context } from "../context";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
+
+	// access to global state
+	const { state, dispatch } = useContext(Context);
+
+	useEffect(() => {
+		if (state.user) router.push("/");
+	}, [state.user]);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
@@ -20,10 +29,15 @@ const Login = () => {
 				password,
 			})
 			.then((res) => {
+				dispatch({ type: "LOGIN", payload: res.data });
 				toast.success("Login successful");
 				setLoading(false);
 				setEmail("");
 				setPassword("");
+				// save user to a local storage
+				window.localStorage.setItem("user", JSON.stringify(res.data));
+				// redirecting
+				router.replace("/");
 			})
 			.catch((err) => {
 				setLoading(false);

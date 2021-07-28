@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { SyncOutlined } from "@ant-design/icons";
 import { useRouter } from "next/dist/client/router";
+import { Context } from "../context";
 
 const Register = () => {
 	const [name, setName] = useState("");
@@ -12,6 +13,7 @@ const Register = () => {
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
+	const {state, reducer} = useContext(Context);
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -32,7 +34,9 @@ const Register = () => {
 			setLoading(false);
 		}
 	};
-
+	useEffect(() => {
+		if (state.user) router.push("/");
+	}, [state.user]);
 	return (
 		<div className="flex items-center justify-center flex-col">
 			<div
