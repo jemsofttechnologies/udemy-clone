@@ -1,22 +1,29 @@
 import Button from "@material-tailwind/react/Button";
+import Icon from "@material-tailwind/react/Icon";
 import {
 	AppstoreOutlined,
 	LoginOutlined,
 	LogoutOutlined,
 	UserAddOutlined,
+	UserOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/dist/client/router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../context";
 import { toast } from "react-toastify";
 import axios from "axios";
 
+
 const Header = () => {
 	const router = useRouter();
 	const { asPath } = useRouter();
+	const [subMenu, setSubMenu] = useState(false);
 
 	// global state
-	const { state, dispatch } = useContext(Context);
+	const {
+		state: { user },
+		dispatch,
+	} = useContext(Context);
 
 	// user logout
 	const logout = async () => {
@@ -34,6 +41,9 @@ const Header = () => {
 				toast.alert(err.response.data);
 			});
 	};
+	useEffect(() => {
+		setSubMenu(false);
+	}, []);
 	return (
 		<div className="flex justify-between shadow-lg mb-1">
 			<div className="flex space-x-2 p-2 text-3xl">
@@ -52,7 +62,7 @@ const Header = () => {
 					<AppstoreOutlined style={{}} />
 					Apps
 				</Button>
-				{!state.user && (
+				{!user && (
 					<>
 						<Button
 							color="black"
@@ -87,24 +97,59 @@ const Header = () => {
 					</>
 				)}
 			</div>
-			{state.user && (
-				<div className="flex items-center mr-2 p-2 space-x-2">
-					<span className="text-sm font-medium">
-						Welcome, {state.user?.name}
-					</span>
-					<Button
-						color="black"
-						buttonType="outline"
-						rounded={false}
-						iconOnly={true}
-						ripple="dark"
-						className={`h-12 w-24 !border-0 font-medium capitalize
-									hover:text-blue-700 hover:!border-b-2 hover:border-blue-700`}
-						onClick={logout}
-					>
-						<LogoutOutlined />
-						Logout
-					</Button>
+			{user && (
+				<div className="relative">
+					<div className="flex flex-col items-center p-2 space-x-2 w-36">
+						<Button
+							color="black"
+							buttonType="outline"
+							rounded={false}
+							iconOnly={true}
+							ripple="dark"
+							className={`h-12 w-full !border-0 font-medium capitalize
+						  hover:text-blue-700 hover:!border-b-2 hover:border-blue-700 
+						  mr-2`}
+							onClick={() => setSubMenu(true)}
+						>
+							<UserOutlined />
+							{user.name}
+						</Button>
+					</div>
+					{subMenu && (
+						<div
+							onMouseLeave={() => setSubMenu(false)}
+							className="flex flex-col absolute 
+							bg-white w-32 h-20 mt-2 rounded-sm right-1"
+						>
+							<Button
+								color="black"
+								buttonType="outline"
+								rounded={false}
+								iconOnly={true}
+								ripple="dark"
+								className={`!justify-start !p-2 h-12 w-full  !border-b-1 
+										font-medium capitalize hover:bg-gray-100
+										hover:text-blue-700 rounded-sm`}
+								onClick={logout}
+							>
+								<Icon name="dashboard" size="sm" />
+								Dashboard
+							</Button>
+							<Button
+								color="black"
+								buttonType="outline"
+								rounded={false}
+								iconOnly={true}
+								ripple="dark"
+								className={`!justify-start !p-2 h-12 w-full !border-b-1 font-medium capitalize
+										hover:text-blue-700 hover:bg-gray-100 rounded-sm`}
+								onClick={logout}
+							>
+								<LogoutOutlined />
+								Logout
+							</Button>
+						</div>
+					)}
 				</div>
 			)}
 		</div>

@@ -103,7 +103,7 @@ export const currentUser = async (req, res) => {
 			.select("-password")
 			.exec();
 		console.log("CURRENT_USER", user);
-		return res.json(user);
+		return res.json({ ok: true });
 	} catch (err) {
 		console.log(err);
 	}
