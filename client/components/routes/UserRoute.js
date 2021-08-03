@@ -12,7 +12,7 @@ const UserRoute = ({ children }) => {
 			await axios
 				.get("/api/current-user")
 				.then((res) => {
-					console.log(res.data);
+					// console.log(res.data);
 					if (res.data.ok) setOk(true);
 				})
 				.catch((err) => {

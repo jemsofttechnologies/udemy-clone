@@ -31,7 +31,7 @@ const Login = () => {
 			.then((res) => {
 				dispatch({ type: "LOGIN", payload: res.data });
 				toast.success("Login successful");
-				setLoading(false);
+				setLoading(false);  
 				setEmail("");
 				setPassword("");
 				// save user to a local storage
