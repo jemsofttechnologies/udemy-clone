@@ -1,6 +1,7 @@
 import User from "../models/User";
 import { hashPassword, comparePassword } from "../utils/auth";
 import jwt from "jsonwebtoken";
+import { nanoid } from "nanoid";
 const nodemailer = require("nodemailer");
 
 export const register = async (req, res) => {
@@ -111,35 +112,37 @@ export const currentUser = async (req, res) => {
 };
 
 // send email
-export const sendTestEmail = async (req, res) => {
+export const forgotPassword = async (req, res) => {
 	try {
+		const { email } = req.body;
+		const shortCode = nanoid(6).toUpperCase();
+		const user = await User.findOneAndUpdate(
+			{ email },
+			{ passwordResetCode: shortCode }
+		);
+		if (!user) res.status(400).send("User not found");
+
+		// Preparing the email
 		const transporter = nodemailer.createTransport({
 			service: "gmail",
 			auth: {
-				user: "jemsofttests@gmail.com",
-				pass: "Qwey8ry8w4t0t079hdasbhfjsdjfbj",
+				user: process.env.EMAIL_FROM,
+				pass: process.env.EMAIL_FROM_PASSWORD,
 			},
 		});
-
 		const options = {
-			from: "jemsofttests@gmail.com",
-			to: "jemsofttechnologies@gmail.com",
-			subject: "Password reset link",
-			text: "Please use the following link to reset your password",
-			html:
-				"<!DOCTYPE html>" +
-				"<html><head><title>Password reset</title>" +
-				"</head><body><div style=\"display:flex; align-items:center; justify-content:center; flex:1; border: 1px solid grey; \">" +
-				'<img src="https://webexplorar.com/wp-content/uploads/2020/05/Password-reset-methods.gif" alt="" width="160">' +
-				"<p>Thank you for your appointment.</p>" +
-				"<p>Here is summery:</p>" +
-				"<p>Name: James Falcon</p>" +
-				"<p>Date: Feb 2, 2017</p>" +
-				"<p>Package: Hair Cut </p>" +
-				"<p>Arrival time: 4:30 PM</p>" +
-				"</div></body></html>",
+			from: process.env.EMAIL_FROM,
+			to: email,
+			subject: "Reset Password",
+			text: `Hello ${user.name}, Please use the following link to reset your password`,
+			html: `<html>
+				<h1>Reset password</h1>
+				<p> Use this code to reset your password</p>
+				<h2 style="color:red;">${shortCode}</h2>
+				<i>edemy.com</i>
+				</html>`,
 		};
-		console.log("Sending email");
+		// console.log("Sending email");
 		await transporter.sendMail(options, (err, info) => {
 			if (err) {
 				console.log(err);
@@ -152,4 +155,10 @@ export const sendTestEmail = async (req, res) => {
 	} catch (err) {
 		console.log(err);
 	}
+};
+
+// Reset Password
+export const resetPassword = async (req, res) => {
+	const { email, code, newPassword } = req.body;
+	console.log(email, code, newPassword);
 };

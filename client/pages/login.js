@@ -57,7 +57,7 @@ const Login = () => {
 			<div className="flex items-center justify-center mt-10">
 				<section className="shadow-lg">
 					<form
-						className="flex flex-col space-y-6 p-12 pb-4 rounded-md"
+						className="flex flex-col  space-y-6 p-12 pb-4 rounded-md"
 						action=""
 						method="post"
 						onSubmit={handleSubmit}
@@ -88,17 +88,26 @@ const Login = () => {
 							buttonType="fill"
 							ripple="light"
 							disabled={loading}
+							className="capitalize text-base"
 						>
 							{loading ? (
 								<SyncOutlined spin />
 							) : (
 								<Icon name="send" size="sm" />
 							)}
-							Submit
+							Sign in
 						</Button>
 					</form>
-					<p className="text-center p-3 mb-12">
-						Not registered registered?
+					<p className="text-center p-3 mb-7">
+						<span
+							onClick={() => router.push("/forgot-password")}
+							className="text-base text-gray-500 hover:text-blue-700 hover:underline hover:cursor-pointer"
+						>
+							Forgot password?
+						</span>
+					</p>
+					<p className="text-center p-6 border">
+						New here?
 						<span
 							onClick={() => router.push("/register")}
 							className="text-blue-700 hover:underline hover:cursor-pointer ml-1"
