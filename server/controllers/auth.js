@@ -137,7 +137,7 @@ export const forgotPassword = async (req, res) => {
 			text: `Hello ${user.name}, Please use the following link to reset your password`,
 			html: `<html>
 				<h1>Reset password</h1>
-				<p> Use this code to reset your password</p>
+				<p> Hello ${user.name}. Please use the following secret code to reset your password</p>
 				<h2 style="color:red;">${shortCode}</h2>
 				<i>edemy.com</i>
 				</html>`,
@@ -159,6 +159,23 @@ export const forgotPassword = async (req, res) => {
 
 // Reset Password
 export const resetPassword = async (req, res) => {
-	const { email, code, newPassword } = req.body;
-	console.log(email, code, newPassword);
+	try {
+		const { email, code, newPassword } = req.body;
+		// console.table({email, code, newPassword});
+		const hashedPassword = await hashPassword(newPassword);
+		const user = User.findOneAndUpdate(
+			{
+				email,
+				passwordResetCode: code,
+			},
+			{
+				password: hashedPassword,
+				passwordResetCode: "",
+			}
+		).exec();
+		res.json({ ok: true });
+	} catch (err) {
+		console.log(err);
+		return res.status(400).send("Error! Try again");
+	}
 };

@@ -9,7 +9,7 @@ import { Context } from "../context";
 
 const ForgotPassword = () => {
 	const [email, setEmail] = useState("");
-	const [success, setSuccess] = useState(true);
+	const [success, setSuccess] = useState(false);
 	const [code, setCode] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -22,7 +22,7 @@ const ForgotPassword = () => {
 	// Redirect if user is logged in
 	useEffect(() => {
 		if (user) router.push("/");
-	}, []);
+	}, [user]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -54,6 +54,10 @@ const ForgotPassword = () => {
 				setEmail("");
 				setNewPassword("");
 				setCode("");
+				toast.success(
+					"Password reset successful! Now you can login with the new password"
+				);
+				router.push("/login");
 			})
 			.catch((err) => {
 				toast.error(err.response.data);

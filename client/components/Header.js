@@ -13,7 +13,6 @@ import { Context } from "../context";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-
 const Header = () => {
 	const router = useRouter();
 	const { asPath } = useRouter();
@@ -43,7 +42,7 @@ const Header = () => {
 	};
 	useEffect(() => {
 		setSubMenu(false);
-	}, []);
+	}, [router]);
 	return (
 		<div className="flex justify-between shadow-lg mb-1">
 			<div className="flex space-x-2 p-2 text-3xl">
@@ -130,7 +129,7 @@ const Header = () => {
 								className={`!justify-start !p-2 h-12 w-full  !border-b-1 
 										font-medium capitalize hover:bg-gray-100
 										hover:text-blue-700 rounded-sm`}
-								onClick={logout}
+								onClick={() => router.push("/user")}
 							>
 								<Icon name="dashboard" size="sm" />
 								Dashboard

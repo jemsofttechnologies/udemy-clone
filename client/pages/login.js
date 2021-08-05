@@ -37,7 +37,7 @@ const Login = () => {
 				// save user to a local storage
 				window.localStorage.setItem("user", JSON.stringify(res.data));
 				// redirecting
-				router.replace("/");
+				router.replace("/user");
 			})
 			.catch((err) => {
 				setLoading(false);
