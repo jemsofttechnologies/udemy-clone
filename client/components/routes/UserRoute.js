@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { SyncOutlined } from "@ant-design/icons";
+import UserNav from "../nav/UserNav";
 
 const UserRoute = ({ children }) => {
 	const [ok, setOk] = useState(false);
@@ -34,7 +35,14 @@ const UserRoute = ({ children }) => {
 					/>
 				</>
 			) : (
-				<>{children}</>
+				<div className="grid grid-flow-col grid-cols-12 gap-1 max-w-7xl mx-auto">
+					<div className="col-span-1 md:col-span-2 shadow-md ">
+						<UserNav />
+					</div>
+					<div className="col-span-11 md:col-span-10 bg-gray-50 h-full">
+						{children}
+					</div>
+				</div>
 			)}
 		</>
 	);
