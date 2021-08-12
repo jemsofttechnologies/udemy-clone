@@ -6,6 +6,8 @@ import {
 	LogoutOutlined,
 	UserAddOutlined,
 	UserOutlined,
+	CarryOutOutlined,
+	TeamOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/dist/client/router";
 import { useContext, useEffect, useState } from "react";
@@ -62,6 +64,39 @@ const Header = () => {
 						<AppstoreOutlined style={{}} />
 						Apps
 					</Button>
+					{user?.role?.includes("Instructor") ? (
+						<Button
+							color="black"
+							buttonType="outline"
+							rounded={false}
+							iconOnly={true}
+							ripple="dark"
+							className={`!flex h-12 w-24 !border-0 font-medium capitalize ${
+								asPath === "/register" &&
+								"text-blue-700 !border-b-2 border-blue-700"
+							}`}
+							onClick={() => router.push("/instructor/course/create")}
+						>
+							<CarryOutOutlined />
+							Create Course
+						</Button>
+					) : (
+						<Button
+							color="black"
+							buttonType="outline"
+							rounded={false}
+							iconOnly={true}
+							ripple="dark"
+							className={`!flex h-12 w-36 !border-0 font-medium capitalize ${
+								asPath === "/register" &&
+								"text-blue-700 !border-b-2 border-blue-700"
+							}`}
+							onClick={() => router.push("/user/become-instructor")}
+						>
+							<TeamOutlined />
+							Become Instructor
+						</Button>
+					)}
 					{!user && (
 						<>
 							<Button
