@@ -1,10 +1,36 @@
 import {
 	SettingOutlined,
+	SyncOutlined,
 	UserSwitchOutlined,
 } from "@ant-design/icons";
 import Button from "@material-tailwind/react/Button";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import { Context } from "../../context";
 
 const BecomeInstructor = () => {
+	const [loading, setLoading] = useState(false);
+	const {
+		state: { user },
+		dispatch,
+	} = useContext(Context);
+	const becomeInstructor = async () => {
+		setLoading(true);
+		await axios
+			.post("/api/make-instructor", {
+				user,
+			})
+			.then((res) => {
+				setLoading(false);
+				toast.success("Setup was successful!")
+			})
+			.catch((err) => {
+				console.log(err.response.data)
+				setLoading(false);
+				toast.error(err.response.data);
+			});
+	};
 	return (
 		<div className="flex flex-col">
 			<div
@@ -29,8 +55,10 @@ const BecomeInstructor = () => {
 						buttonType="outlined"
 						ripple="light"
 						className="capitalize"
+						disabled={loading}
+						onClick={(e) => becomeInstructor(e)}
 					>
-						<SettingOutlined />
+						{loading ? <SyncOutlined spin /> : <SettingOutlined />}
 						Payout Setup
 					</Button>
 					<p className="">

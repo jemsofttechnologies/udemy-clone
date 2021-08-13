@@ -21,7 +21,7 @@ const ForgotPassword = () => {
 
 	// Redirect if user is logged in
 	useEffect(() => {
-		if (user) router.push("/");
+		if (user) router.push("/user");
 	}, [user]);
 
 	const handleSubmit = async (e) => {

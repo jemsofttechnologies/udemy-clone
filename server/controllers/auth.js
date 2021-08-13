@@ -179,3 +179,12 @@ export const resetPassword = async (req, res) => {
 		return res.status(400).send("Error! Try again");
 	}
 };
+
+// Become Instructor
+export const becomeInstructor = async (req, res) => {
+	try {
+		return res.status(200).send("ok");
+	} catch (err) {
+		return res.status(400).send("Error! Try again");
+	}
+};

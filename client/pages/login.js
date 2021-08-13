@@ -17,7 +17,7 @@ const Login = () => {
 	const { state, dispatch } = useContext(Context);
 
 	useEffect(() => {
-		if (state.user) router.push("/");
+		if (state.user) router.push("/user");
 	}, [state.user]);
 
 	const handleSubmit = async (e) => {
