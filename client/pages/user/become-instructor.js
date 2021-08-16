@@ -18,17 +18,16 @@ const BecomeInstructor = () => {
 	const becomeInstructor = async () => {
 		setLoading(true);
 		await axios
-			.post("/api/make-instructor", {
-				user,
-			})
+			.post("/api/make-instructor")
 			.then((res) => {
 				setLoading(false);
 				toast.success("Setup was successful!")
+				window.location.href = res.data
 			})
 			.catch((err) => {
 				console.log(err.response.data)
 				setLoading(false);
-				toast.error(err.response.data);
+				toast.error("Setup was unsuccessful. Please try again!");
 			});
 	};
 	return (

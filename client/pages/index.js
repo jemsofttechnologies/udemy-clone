@@ -1,6 +1,17 @@
+import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
+import { useContext, useEffect } from "react";
+import { Context } from "../context";
 
-export default function Home() {
+const Home = () => {
+	const router = useRouter();
+	const {
+		state: { user },
+		dispatch,
+	} = useContext(Context);
+	useEffect(() => {
+		user && router.push("/user");
+	}, [user]);
 	return (
 		<div className="">
 			<Head>
@@ -16,4 +27,5 @@ export default function Home() {
 			</div>
 		</div>
 	);
-}
+};
+export default Home;

@@ -24,9 +24,11 @@ function MyApp({ Component, pageProps }) {
 					crossOrigin="anonymous"
 				/>
 			</Head>
-			<Header />
-			<ToastContainer position="top-center" />
-			<Component {...pageProps} />
+			<div className="flex flex-col h-screen">
+				<Header />
+				<ToastContainer position="top-center" />
+				<Component {...pageProps} />
+			</div>
 		</Provider>
 	);
 }
