@@ -1,6 +1,6 @@
 import User from "../models/User";
 import { nanoid } from "nanoid";
-import queryString from "query-string";
+// import queryString from "query-string";
 
 // Make Instructor
 export const makeInstructor = async (req, res) => {
@@ -39,7 +39,23 @@ export const getAccountStatus = async (req, res) => {
 				.exec();
 			// statusUpdated.password = undefined;
 			// statusUpdated.passwordResetCode = undefined;
-			res.json(statusUpdated);
+			return res.json(statusUpdated);
+		}
+	} catch (err) {
+		console.log(err);
+		return res.status(400).send("Error! Try again");
+	}
+};
+
+export const currentInstructor = async (req, res) => {
+	try {
+		const user = await User.findById(req.user._id)
+			.select(["-password", "-passwordResetCode"])
+			.exec();
+		if (!user.role.includes("Instructor")) {
+			return res.status(403);
+		} else {
+			return res.json({ ok: true });
 		}
 	} catch (err) {
 		console.log(err);

@@ -71,8 +71,8 @@ const Header = () => {
 							rounded={false}
 							iconOnly={true}
 							ripple="dark"
-							className={`!flex h-12 w-24 !border-0 font-medium capitalize ${
-								asPath === "/register" &&
+							className={`!flex h-12 w-32 !border-0 font-medium capitalize ${
+								asPath === "/instructor/course/create" &&
 								"text-blue-700 !border-b-2 border-blue-700"
 							}`}
 							onClick={() => router.push("/instructor/course/create")}
@@ -88,7 +88,7 @@ const Header = () => {
 							iconOnly={true}
 							ripple="dark"
 							className={`!flex h-12 w-36 !border-0 font-medium capitalize ${
-								asPath === "/register" &&
+								asPath === "/user/become-instructor" &&
 								"text-blue-700 !border-b-2 border-blue-700"
 							}`}
 							onClick={() => router.push("/user/become-instructor")}
@@ -97,6 +97,7 @@ const Header = () => {
 							Become Instructor
 						</Button>
 					)}
+
 					{!user && (
 						<>
 							<Button
@@ -132,61 +133,82 @@ const Header = () => {
 						</>
 					)}
 				</div>
-				{user && (
-					<div className="relative">
-						<div className="flex flex-col items-center p-2 space-x-2 w-36">
+				<div className=" flex flex-row">
+					{user?.role?.includes("Instructor") && (
+						<div className="flex flex-col items-center p-2">
 							<Button
 								color="black"
 								buttonType="outline"
 								rounded={false}
 								iconOnly={true}
 								ripple="dark"
-								className={`!flex h-12 w-full !border-0 font-medium capitalize
-						  hover:text-blue-700 hover:!border-b-2 hover:border-blue-700 
-						  mr-2`}
-								onClick={() => setSubMenu(true)}
+								className={`!flex h-12 w-24 !border-0 font-medium capitalize ${
+									asPath === "/instructor" &&
+									"text-blue-700 !border-b-2 border-blue-700"
+								}`}
+								onClick={() => router.push("/instructor")}
 							>
-								<UserOutlined />
-								{user.name}
+								<TeamOutlined />
+								Instructor
 							</Button>
 						</div>
-						{subMenu && (
-							<div
-								onMouseLeave={() => setSubMenu(false)}
-								className="flex flex-col absolute 
-							bg-white w-32 h-20 mt-2 rounded-sm right-1"
-							>
+					)}
+					{user && (
+						<div className="relative">
+							<div className="flex flex-col items-center p-2 space-x-2 w-36">
 								<Button
 									color="black"
 									buttonType="outline"
 									rounded={false}
 									iconOnly={true}
 									ripple="dark"
-									className={`!flex !justify-start !p-2 h-12 w-full  !border-b-1 
-										font-medium capitalize hover:bg-gray-100
-										hover:text-blue-700 rounded-sm`}
-									onClick={() => router.push("/user")}
+									className={`!flex h-12 w-full !border-0 font-medium capitalize
+						  hover:text-blue-700 hover:!border-b-2 hover:border-blue-700 
+						  mr-2`}
+									onClick={() => setSubMenu(true)}
 								>
-									<Icon name="dashboard" size="sm" />
-									Dashboard
-								</Button>
-								<Button
-									color="black"
-									buttonType="outline"
-									rounded={false}
-									iconOnly={true}
-									ripple="dark"
-									className={`!flex !justify-start !p-2 h-12 w-full !border-b-1 font-medium capitalize
-										hover:text-blue-700 hover:bg-gray-100 rounded-sm`}
-									onClick={logout}
-								>
-									<LogoutOutlined />
-									Logout
+									<UserOutlined />
+									{user.name}
 								</Button>
 							</div>
-						)}
-					</div>
-				)}
+							{subMenu && (
+								<div
+									onMouseLeave={() => setSubMenu(false)}
+									className="flex flex-col absolute 
+							bg-white w-32 h-20 mt-2 rounded-sm right-1"
+								>
+									<Button
+										color="black"
+										buttonType="outline"
+										rounded={false}
+										iconOnly={true}
+										ripple="dark"
+										className={`!flex !justify-start !p-2 h-12 w-full  !border-b-1 
+										font-medium capitalize hover:bg-gray-100
+										hover:text-blue-700 rounded-sm`}
+										onClick={() => router.push("/user")}
+									>
+										<Icon name="dashboard" size="sm" />
+										Dashboard
+									</Button>
+									<Button
+										color="black"
+										buttonType="outline"
+										rounded={false}
+										iconOnly={true}
+										ripple="dark"
+										className={`!flex !justify-start !p-2 h-12 w-full !border-b-1 font-medium capitalize
+										hover:text-blue-700 hover:bg-gray-100 rounded-sm`}
+										onClick={logout}
+									>
+										<LogoutOutlined />
+										Logout
+									</Button>
+								</div>
+							)}
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

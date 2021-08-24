@@ -1,3 +1,4 @@
+import { CarryOutOutlined } from "@ant-design/icons";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import axios from "axios";
@@ -6,7 +7,7 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 import { Context } from "../../context";
 
-const UserNav = () => {
+const InstructorNav = () => {
 	const router = useRouter();
 	const { asPath } = useRouter();
 	const { state, dispatch } = useContext(Context);
@@ -39,13 +40,32 @@ const UserNav = () => {
 				className={`!flex !justify-start !p-2 h-12 w-full border-0 border-b-2 
 										font-medium capitalize hover:bg-gray-100
 										hover:text-blue-700 rounded-sm ${
-											asPath === "/user" &&
+											asPath === "/instructor" &&
 											"text-white bg-blue-500"
 										}`}
-				onClick={() => router.push("/user")}
+				onClick={() => router.push("/instructor")}
 			>
 				<Icon name="dashboard" size="sm" />
 				<span className="hidden md:inline-flex ml-2">Dashboard</span>
+			</Button>
+			<Button
+				color="black"
+				buttonType="outline"
+				rounded={false}
+				iconOnly={true}
+				ripple="dark"
+				className={`!flex !justify-start !p-2 h-12 w-full border-0 border-b-2 
+										font-medium capitalize hover:bg-gray-100
+										hover:text-blue-700 rounded-sm ${
+											asPath === "/instructor/course/create" &&
+											"text-white bg-blue-500"
+										}`}
+				onClick={() => router.push("/instructor/course/create")}
+			>
+				<CarryOutOutlined size="sm" />
+				<span className="hidden md:inline-flex ml-2">
+					Course Create
+				</span>
 			</Button>
 			<Button
 				color="black"
@@ -65,4 +85,4 @@ const UserNav = () => {
 	);
 };
 
-export default UserNav;
+export default InstructorNav;

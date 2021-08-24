@@ -105,7 +105,11 @@ export const currentUser = async (req, res) => {
 			.select("-password")
 			.exec();
 		// console.log("CURRENT_USER", user);
-		return res.json({ ok: true });
+		if (!user) {
+			return res.status(403);
+		} else {
+			return res.json({ ok: true });
+		}
 	} catch (err) {
 		console.log(err);
 	}
@@ -179,5 +183,3 @@ export const resetPassword = async (req, res) => {
 		return res.status(400).send("Error! Try again");
 	}
 };
-
-

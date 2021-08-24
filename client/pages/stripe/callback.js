@@ -16,8 +16,16 @@ const StripeCallback = () => {
 			axios
 				.post("/api/get-account-status")
 				.then((res) => {
-                    console.log(res)
-					// router.push("/instructor");
+					// console.log(res)
+					dispatch({
+						type: "LOGIN",
+						payload: res.data,
+					});
+					window.localStorage.setItem(
+						"user",
+						JSON.stringify(res.data)
+					);
+					router.push("/instructor");
 				})
 				.catch((err) => {
 					toast.error(err.response.message);
@@ -25,9 +33,9 @@ const StripeCallback = () => {
 		}
 	}, [user]);
 	return (
-			<div className="flex h-full justify-center items-center  text-blue-700 text-8xl">
-				<SyncOutlined spin />
-			</div>
+		<div className="flex h-full justify-center items-center  text-blue-700 text-8xl">
+			<SyncOutlined spin />
+		</div>
 	);
 };
 

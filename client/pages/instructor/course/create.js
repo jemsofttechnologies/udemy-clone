@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import InstructorRoute from "../../../components/routes/InstructorRoute";
 import { Context } from "../../../context";
 
 const CourseCreate = () => {
@@ -8,7 +9,7 @@ const CourseCreate = () => {
 	} = useContext(Context);
     
 	return (
-		<div className="flex flex-col">
+		<InstructorRoute className="flex flex-col">
 			<div
 				className="flex items-center justify-center w-full h-32 
                 bg-gradient-to-r from-blue-600 to-black text-4xl 
@@ -16,7 +17,7 @@ const CourseCreate = () => {
 			>
 				<h2 className="">Create Course</h2>
 			</div>
-		</div>
+		</InstructorRoute>
 	);
 };
 
