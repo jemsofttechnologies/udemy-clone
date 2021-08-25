@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "../context";
+// import "antd/dist/antd.css";
 
 function MyApp({ Component, pageProps }) {
 	return (

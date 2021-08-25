@@ -1,13 +1,16 @@
 import { useContext, useState } from "react";
+import CourseCreateForm from "../../../components/CourseCreateForm";
 import InstructorRoute from "../../../components/routes/InstructorRoute";
 import { Context } from "../../../context";
 
 const CourseCreate = () => {
-	const [loading, setLoading] = useState(false);
+	
 	const {
 		state: { user },
 	} = useContext(Context);
-    
+
+	
+
 	return (
 		<InstructorRoute className="flex flex-col">
 			<div
@@ -16,6 +19,9 @@ const CourseCreate = () => {
                 font-medium text-white shadow-xl"
 			>
 				<h2 className="">Create Course</h2>
+			</div>
+			<div>
+				<CourseCreateForm  />
 			</div>
 		</InstructorRoute>
 	);
