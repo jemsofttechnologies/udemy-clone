@@ -35,11 +35,11 @@ const InstructorRoute = ({ children }) => {
 					/>
 				</>
 			) : (
-				<div className="grid grid-flow-col grid-cols-12 gap-1 w-full max-w-7xl mx-auto">
+				<div className="grid grid-flow-col grid-cols-12 gap-2 w-full max-w-7xl mx-auto">
 					<div className="hidden md:inline-grid md:col-span-2 shadow-md ">
 						<InstructorNav />
 					</div>
-					<div className="col-span-12 md:col-span-10 bg-gray-50 h-full">
+					<div className="col-span-12 md:col-span-10  h-full">
 						{children}
 					</div>
 				</div>

@@ -30,12 +30,12 @@ const UserRoute = ({ children }) => {
 				<>
 					<SyncOutlined
 						spin
-						className="flex h-screen items-center 
+						className="flex h-full items-center 
 						justify-center text-9xl text-blue-700"
 					/>
 				</>
 			) : (
-				<div className="grid grid-flow-col grid-cols-12 gap-1 w-full max-w-7xl mx-auto">
+				<div className="grid grid-flow-col grid-cols-12 gap-2 w-full max-w-7xl mx-auto">
 					<div className="hidden md:inline-grid md:col-span-2 shadow-md ">
 						<UserNav />
 					</div>
