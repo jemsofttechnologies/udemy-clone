@@ -36,7 +36,7 @@ const UserNav = () => {
 				rounded={false}
 				iconOnly={true}
 				ripple="dark"
-				className={`!flex !justify-start !p-2 h-12 w-full border-0 border-b-2 
+				className={`!flex !justify-start !p-2 h-12 !w-full border-0 border-b-2 
 										font-medium capitalize hover:bg-gray-100
 										hover:text-blue-700 rounded-sm ${
 											asPath === "/user" &&
@@ -53,7 +53,7 @@ const UserNav = () => {
 				rounded={false}
 				iconOnly={true}
 				ripple="dark"
-				className={`!flex !justify-start !p-2 h-12 w-full border-0 border-b-2 
+				className={`!flex !justify-start !p-2 h-12 !w-full border-0 border-b-2 
 										font-medium capitalize hover:bg-gray-100
 										hover:text-blue-700 rounded-sm`}
 				onClick={logout}

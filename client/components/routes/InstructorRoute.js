@@ -30,7 +30,7 @@ const InstructorRoute = ({ children }) => {
 				<>
 					<SyncOutlined
 						spin
-						className="flex h-screen items-center 
+						className="flex h-full items-center 
 						justify-center text-9xl text-blue-700"
 					/>
 				</>

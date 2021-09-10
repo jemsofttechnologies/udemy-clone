@@ -48,14 +48,14 @@ const Header = () => {
 	return (
 		<div className="shadow-lg mb-1">
 			<div className="flex justify-between mx-auto  lg:max-w-7xl">
-				<div className="flex space-x-2 pt-2 pl-1 text-3xl">
+				<div className="flex flex-row space-x-2 pt-2 pl-1 text-3xl">
 					<Button
 						color="black"
 						buttonType="outline"
 						rounded={false}
 						iconOnly={true}
 						ripple="dark"
-						className={`!flex h-12 w-14 md:w-16 !border-0 font-medium capitalize ${
+						className={`!flex !flex-row h-12 !w-14 !md:w-16 !border-0 font-medium capitalize ${
 							asPath === "/" &&
 							"text-blue-700 !border-b-2 border-blue-700"
 						}`}
@@ -71,7 +71,7 @@ const Header = () => {
 							rounded={false}
 							iconOnly={true}
 							ripple="dark"
-							className={`!flex h-12 w-32 !border-0 font-medium capitalize ${
+							className={`!flex h-12 !w-32 !border-0 font-medium capitalize ${
 								asPath === "/instructor/course/create" &&
 								"text-blue-700 !border-b-2 border-blue-700"
 							}`}
@@ -87,7 +87,7 @@ const Header = () => {
 							rounded={false}
 							iconOnly={true}
 							ripple="dark"
-							className={`!flex h-12 w-36 !border-0 font-medium capitalize ${
+							className={`!flex !flex-row h-12 !w-32 !border-0 font-medium capitalize ${
 								asPath === "/user/become-instructor" &&
 								"text-blue-700 !border-b-2 border-blue-700"
 							}`}
@@ -99,14 +99,14 @@ const Header = () => {
 					)}
 
 					{!user && (
-						<>
+						<div className="flex flex-row space-x-2">
 							<Button
 								color="black"
 								buttonType="outline"
 								rounded={false}
 								iconOnly={true}
 								ripple="dark"
-								className={`!flex h-12 w-24 !border-0 font-medium capitalize ${
+								className={`!flex !flex-row h-12 !w-20 !border-0 font-medium capitalize ${
 									asPath === "/login" &&
 									"text-blue-700 !border-b-2 border-blue-700"
 								}`}
@@ -121,7 +121,7 @@ const Header = () => {
 								rounded={false}
 								iconOnly={true}
 								ripple="dark"
-								className={`!flex h-12 w-24 !border-0 font-medium capitalize ${
+								className={`!flex !flex-row h-12 !w-20 !border-0 font-medium capitalize ${
 									asPath === "/register" &&
 									"text-blue-700 !border-b-2 border-blue-700"
 								}`}
@@ -130,7 +130,7 @@ const Header = () => {
 								<UserAddOutlined />
 								Register
 							</Button>
-						</>
+						</div>
 					)}
 				</div>
 				<div className=" flex flex-row">
@@ -142,7 +142,7 @@ const Header = () => {
 								rounded={false}
 								iconOnly={true}
 								ripple="dark"
-								className={`!flex h-12 w-24 !border-0 font-medium capitalize ${
+								className={`!flex h-12 !w-24 !border-0 font-medium capitalize ${
 									asPath === "/instructor" &&
 									"text-blue-700 !border-b-2 border-blue-700"
 								}`}
@@ -162,7 +162,7 @@ const Header = () => {
 									rounded={false}
 									iconOnly={true}
 									ripple="dark"
-									className={`!flex h-12 w-full !border-0 font-medium capitalize
+									className={`!flex h-12 !w-full !border-0 font-medium capitalize
 						  hover:text-blue-700 hover:!border-b-2 hover:border-blue-700 
 						  mr-2`}
 									onClick={() => setSubMenu(true)}
@@ -183,7 +183,7 @@ const Header = () => {
 										rounded={false}
 										iconOnly={true}
 										ripple="dark"
-										className={`!flex !justify-start !p-2 h-12 w-full  !border-b-1 
+										className={`!flex !flex-row !justify-start !p-2 h-12 !w-full  !border-b-1 
 										font-medium capitalize hover:bg-gray-100
 										hover:text-blue-700 rounded-sm`}
 										onClick={() => router.push("/user")}
@@ -197,7 +197,7 @@ const Header = () => {
 										rounded={false}
 										iconOnly={true}
 										ripple="dark"
-										className={`!flex !justify-start !p-2 h-12 w-full !border-b-1 font-medium capitalize
+										className={`!flex !justify-start !p-2 h-12 !w-full !border-b-1 font-medium capitalize
 										hover:text-blue-700 hover:bg-gray-100 rounded-sm`}
 										onClick={logout}
 									>

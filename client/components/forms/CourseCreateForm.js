@@ -3,30 +3,17 @@ import Button from "@material-tailwind/react/Button";
 import Input from "@material-tailwind/react/Input";
 import Textarea from "@material-tailwind/react/Textarea";
 import Icon from "@material-tailwind/react/Icon";
-import { Select } from "antd";
-import React, { useState } from "react";
+import Image from "@material-tailwind/react/Image";
 
-const { Option } = Select;
-const CourseCreateForm = () => {
-	const [values, setValues] = useState({
-		name: "",
-		description: "",
-		price: "9.99",
-		uploading: false,
-		paid: true,
-		loading: false,
-		imagePreview: "",
-	});
-	const handleChange = (e) => {
-		setValues({ ...values, [e.target.name]: e.target.value });
-	};
-	const handleImage = () => {
-		//
-	};
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.table({ values });
-	};
+const CourseCreateForm = ({
+	handleChange,
+	handleSubmit,
+	handleImage,
+	setValues,
+	values,
+	preview,
+	uploadButtonText,
+}) => {
 	return (
 		<div className="flex flex-col items-center justify-center">
 			<form
@@ -59,36 +46,64 @@ const CourseCreateForm = () => {
 					onChange={(e) => handleChange(e)}
 					required
 				/>
-				<>
+				<div className="grid grid-cols-12 gap-2">
 					<select
 						value={values.paid}
 						onChange={(v) =>
 							setValues({ ...values, paid: !values.paid })
 						}
-						className="h-10 outline-none border p-1 focus:border-2 focus:border-blue-400 rounded-md hover:bg-blue-100 hover:cursor-pointer"
+						className="col-span-10 h-10 outline-none border p-1 focus:border-2 focus:border-blue-400 rounded-md hover:bg-blue-100 hover:cursor-pointer"
 					>
 						<option className="" value={true}>
 							Paid
 						</option>
 						<option value={false}>Free</option>
 					</select>
-				</>
-				<div className="flex flex-row items-center w-full p-2 border h-10 rounded-md hover:bg-blue-100 ">
-					<label
-						htmlFor="image"
-						className="flex-1 hover:cursor-pointer"
-					>
-						{values.loading ? "Uploading" : "Upload Image"}
-						<input
-							type="file"
-							id="image"
-							name="image"
-							onChange={handleImage}
-							accept="image/*"
-							className="flex-1 hidden"
-						/>
-					</label>
+					{values.paid && (
+						<select
+							value={values.price}
+							onChange={(v) => setValues({ ...values, price: v })}
+							className="col-span-2 h-10 outline-none border p-1 focus:border-2 focus:border-blue-400 rounded-md hover:bg-blue-100 hover:cursor-pointer"
+						>
+							<option className="" value={9.99}>
+								{`$ ${values.price}`}
+							</option>
+						</select>
+					)}
 				</div>
+				<div className="grid grid-cols-12 gap-2">
+					<div className="col-span-10">
+						<div className="flex flex-row items-center w-full p-2 border h-10 rounded-md hover:bg-blue-100 ">
+							<label
+								htmlFor="image"
+								className="flex-1 hover:cursor-pointer"
+							>
+								{values.loading ? "Uploading" : uploadButtonText}
+								<input
+									type="file"
+									id="image"
+									name="image"
+									onChange={handleImage}
+									accept="image/*"
+									className="flex-1 hidden"
+								/>
+							</label>
+						</div>
+					</div>
+					<div className="col-span-2">
+						{preview && (
+							<div className="flex flex-row h-full items-center ">
+								<Image
+									src={preview}
+									rounded={true}
+									alt=""
+									className="h-10 w-10"
+								/>
+							</div>
+						)}
+					</div>
+				</div>
+
 				<Button
 					onClick={(e) => handleSubmit(e)}
 					color="blue"
