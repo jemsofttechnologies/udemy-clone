@@ -20,7 +20,8 @@ const CourseCreateForm = ({
 				className="flex flex-col space-y-6 p-12  mt-2 border rounded-md min-w-[90%] xl:min-w-[100%] shadow-lg"
 				action=""
 				method="post"
-				onSubmit={handleSubmit}
+				enctype="multipart/form-data"
+				onSubmit={handleImage}
 			>
 				<Input
 					placeholder="Enter name"
@@ -78,7 +79,7 @@ const CourseCreateForm = ({
 								htmlFor="image"
 								className="flex-1 hover:cursor-pointer"
 							>
-								{values.loading ? "Uploading" : uploadButtonText}
+								{values.loading ? "Uploading..." : uploadButtonText}
 								<input
 									type="file"
 									id="image"
@@ -111,6 +112,7 @@ const CourseCreateForm = ({
 					ripple="light"
 					disabled={values.loading || values.uploading}
 					className="capitalize text-base"
+					onClick={handleImage}
 				>
 					{values.loading ? (
 						<>

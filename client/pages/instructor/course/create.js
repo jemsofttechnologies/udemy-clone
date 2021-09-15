@@ -23,25 +23,25 @@ const CourseCreate = () => {
 	const handleChange = (e) => {
 		setValues({ ...values, [e.target.name]: e.target.value });
 	};
-	const handleImage = (e) => {
+	const handleImage = async (e) => {
 		let file = e.target.files[0];
+		let formData = new FormData();
+		formData.append("image", file)
 		setPreview(window.URL.createObjectURL(e.target.files[0]));
 		setUploadButtonText(file.name);
 		setValues({ ...values, loading: true });
 
 		// file Resize
-		Resizer.imageFileResizer(
-			file,
-			720,
-			500,
-			"JPEG",
-			100,
-			0,
-			async (uri) => {
+		// Resizer.imageFileResizer(
+		// 	file,
+		// 	720,
+		// 	500,
+		// 	"JPEG",
+		// 	100,
+		// 	0,
+		// 	async (uri) => {
 				await axios
-					.post("/api/upload-image", {
-						image: uri,
-					})
+					.post("/api/upload-image", formData)
 					.then((res) => {
 						console.log(`res`, res);
 						setValues({ ...values, loading: false });
@@ -50,8 +50,8 @@ const CourseCreate = () => {
 						setValues({ ...values, loading: false });
 						toast.error(err.response.data);
 					});
-			}
-		);
+			// }
+		// );
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
